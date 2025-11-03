@@ -8,29 +8,33 @@ trait DataPipeline<T> {
     fn filter(&mut self, predicate: fn(&T) -> bool);
 }
 
-struct Validator<T>;
+struct Validator<T> {
+    items: Vec<T>,
+}
 
 impl<T> Validator<T> {
     fn new() -> Self {
-        todo!()
+        Self { items: Vec::new() }
     }
 }
 
 impl<T> DataPipeline<T> for Validator<T> {
     fn insert(&mut self, item: T) {
-        todo!()
+        self.items.push(item);
     }
 
     fn insert_many(&mut self, items: impl Iterator<Item = T>) {
-        todo!()
+        for val in items {
+            self.items.push(val);
+        }
     }
 
     fn num_valid(&self) -> u32 {
-        todo!()
+        self.items.len() as u32
     }
 
     fn filter(&mut self, predicate: fn(&T) -> bool) {
-        todo!()
+        self.items.retain(predicate);
     }
 }
 
