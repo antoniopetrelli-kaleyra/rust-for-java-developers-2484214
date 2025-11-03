@@ -24,9 +24,7 @@ impl<T> DataPipeline<T> for Validator<T> {
     }
 
     fn insert_many(&mut self, items: impl Iterator<Item = T>) {
-        for val in items {
-            self.items.push(val);
-        }
+        self.items.extend(items);
     }
 
     fn num_valid(&self) -> u32 {
